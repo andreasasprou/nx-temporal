@@ -1,9 +1,16 @@
 import { Worker } from '@temporalio/worker';
 import * as activities from './activities';
+import { environment } from './environments';
+import * as path from 'path';
+
+const workflowOption = () =>
+  environment.production
+    ? { workflowBundle: { path: path.resolve(__dirname, './workflows.js') } }
+    : { workflowsPath: require.resolve('./workflows') }
 
 async function run() {
   const worker = await Worker.create({
-    workflowsPath: require.resolve('./workflows'),
+    ...workflowOption(),
     activities,
     taskQueue: 'tutorial',
   });
