@@ -1,0 +1,52 @@
+{
+  "root": "apps/temporal-worker",
+  "sourceRoot": "apps/temporal-worker/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:build",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/temporal-worker",
+        "main": "apps/temporal-worker/src/main.ts",
+        "tsConfig": "apps/temporal-worker/tsconfig.app.json",
+        "assets": ["apps/temporal-worker/src/assets"]
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/temporal-worker/src/environments/environment.ts",
+              "with": "apps/temporal-worker/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/node:execute",
+      "options": {
+        "buildTarget": "temporal-worker:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/temporal-worker/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/temporal-worker"],
+      "options": {
+        "jestConfig": "apps/temporal-worker/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
