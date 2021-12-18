@@ -1,6 +1,8 @@
 {
   "version": 2,
   "projects": {
-    "temporal-worker": "apps/temporal-worker"
+    "activities": "libs/activities",
+    "temporal-worker": "apps/temporal-worker",
+    "workflows": "libs/workflows"
   }
 }
