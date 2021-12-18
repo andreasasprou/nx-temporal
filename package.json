@@ -9,6 +9,9 @@
   },
   "private": true,
   "dependencies": {
+    "@temporalio/client": "^0.17.0",
+    "@temporalio/worker": "^0.17.0",
+    "@temporalio/workflow": "^0.17.0",
     "tslib": "^2.0.0"
   },
   "devDependencies": {
