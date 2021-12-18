@@ -3,6 +3,23 @@
   "sourceRoot": "apps/temporal-worker/src",
   "projectType": "application",
   "targets": {
+    "build-workflows": {
+      "executor": "@nrwl/node:build",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "main": "apps/temporal-worker/src/workflows.ts",
+        "outputPath": "dist/apps/temporal-worker",
+        "outputFileName": "workflows.js",
+        "tsConfig": "apps/temporal-worker/tsconfig.app.json"
+      },
+      "configurations": {
+        "production": {
+          "optimization": false,
+          "extractLicenses": true,
+          "inspect": false
+        }
+      }
+    },
     "build": {
       "executor": "@nrwl/node:build",
       "outputs": ["{options.outputPath}"],
@@ -12,9 +29,15 @@
         "tsConfig": "apps/temporal-worker/tsconfig.app.json",
         "assets": ["apps/temporal-worker/src/assets"]
       },
+      "dependsOn": [
+        {
+          "target": "build-workflows",
+          "projects": "self"
+        }
+      ],
       "configurations": {
         "production": {
-          "optimization": true,
+          "optimization": false,
           "extractLicenses": true,
           "inspect": false,
           "fileReplacements": [
